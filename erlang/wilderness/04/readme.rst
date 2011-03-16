@@ -5,13 +5,13 @@ Hacking Through The Erlang Wilderness : Episode 4
 .. footer:: Copyright (c) 2011 Todd D. Greenwood-Geer 
 
 :Author: Todd D. Greenwood-Geer, Sean Jensen-Grey
-:Date: Tue March 13  2011
-:Version: 0.1
+:Date: Tue March 15  2011
+:Version: 0.2
 :Index: Index_ : Listing of all the episodes
 
 
 ----------------------------------------
-How to Create a Webmachine REST Endpoint
+How to Create a Webmachine Demo App
 ----------------------------------------
 
 Goal
@@ -385,20 +385,11 @@ See http://webmachine.basho.com/quickstart.html
 
     host$ open http://erlang32:8000
 
-.. image:: https://github.com/ToddG/experimental/tree/master/erlang/wilderness/04/images/screen01.png
+.. image:: https://github.com/ToddG/experimental/raw/master/erlang/wilderness/04/images/screen01.png
 
 
-Create new Rest Endpoint
-------------------------
-
-* created new endpoint
-* copied the app_resource app_newendpoint file
-* double dispatch (case within the case)
-    -> used the atom within the URL
-* added some shit together
-
-
-
+Done
+----
 
 
 References
