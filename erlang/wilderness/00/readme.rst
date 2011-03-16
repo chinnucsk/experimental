@@ -25,31 +25,31 @@ Base Install
 
 Create a VM image based on an ubuntu distro.
 
-.. image:: https://github.com/ToddG/experimental/tree/master/erlang/wilderness/00/images/screen1.png
+.. image:: https://github.com/ToddG/experimental/raw/master/erlang/wilderness/00/images/screen1.png
     :height: 500px
     :align: center
 
 Use easy install to create your user account and automatically configure various params.
 
-.. image:: https://github.com/ToddG/experimental/tree/master/erlang/wilderness/00/images/screen2.png
+.. image:: https://github.com/ToddG/experimental/raw/master/erlang/wilderness/00/images/screen2.png
     :height: 500px
     :align: center
 
 Here's the vm configuration, ready to start building.
 
-.. image:: https://github.com/ToddG/experimental/tree/master/erlang/wilderness/00/images/screen3.png
+.. image:: https://github.com/ToddG/experimental/raw/master/erlang/wilderness/00/images/screen3.png
     :height: 500px
     :align: center
 
 Ubuntu server is now installing.
 
-.. image:: https://github.com/ToddG/experimental/tree/master/erlang/wilderness/00/images/screen4.png
+.. image:: https://github.com/ToddG/experimental/raw/master/erlang/wilderness/00/images/screen4.png
     :height: 500px
     :align: center
 
 Ubuntu server install complete.
 
-.. image:: https://github.com/ToddG/experimental/tree/master/erlang/wilderness/00/images/screen5.png
+.. image:: https://github.com/ToddG/experimental/raw/master/erlang/wilderness/00/images/screen5.png
     :height: 500px
     :align: center
 
