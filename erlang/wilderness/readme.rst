@@ -23,20 +23,21 @@ Hopefully, these simple posts will help others as much as they are helping me.
 Episodes
 -----------------------
  * Episode-00_ : Configure a VMWare guest vm
- * Episode-01_ : Install Erlang and Tools Like Faxien, Sinan, and Rebar
- * Episode-02_ : Create a basic app
- * Episode-03_ : Create a Time Server App
+ * *Episode-01_ : (deprecated) Install Erlang and Tools Like Faxien, Sinan, and Rebar*
+ * Episode-02_ : Create a basic Erlang App
+ * Episode-03_ : Create a 'Time Server' App
  * Episode-04_ : Create a Webmachine Demo App (Webmachine Part I)
  * (next)      : Create a Webmachine Rest Endpoint (Webmachine Part 2)
 
 -----------------------
 Ideas For Future Demos
 -----------------------
- * ETS|DTS|Mnesia Demo
+ * ETS, DTS, Mnesia Demo
  * Use OTP to manage external processes (mysql, java, tomcat, etc.)
- * SQL demo
- * Riak demo
- * Sclaris demo
+ * Connect erlang app to a sql server like mysql or postgres
+ * Connect erlang app to a riak cluster
+ * Connect erlang app to a sclaris cluster
+ * Create a minimalist erlang app server using lua
 
 
 .. _Episode-00: https://github.com/ToddG/experimental/blob/master/erlang/wilderness/00/
