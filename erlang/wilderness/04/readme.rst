@@ -17,13 +17,13 @@ How to Create a Webmachine Demo App
 Goal
 ----
 
-Create a REST endpoint that will add two integers and return the result.
+Create a basic Webmachine demo application that returns 'hello world'.
 
 Example::
 
-    http://erlang-server:8000/service/add/1/2
+    http://erlang-server:8000
 
-In this case, this should return 3 as a text/plain response.
+This should return 'hello world' in the response.
 
 
 Construct the VM
