@@ -25,31 +25,31 @@ Base Install
 
 Create a VM image based on an ubuntu distro.
 
-.. image:: images/screen1.png
+.. image:: ./images/screen1.png
     :height: 500px
     :align: center
 
 Use easy install to create your user account and automatically configure various params.
 
-.. image:: images/screen2.png
+.. image:: ./images/screen2.png
     :height: 500px
     :align: center
 
 Here's the vm configuration, ready to start building.
 
-.. image:: images/screen3.png
+.. image:: ./images/screen3.png
     :height: 500px
     :align: center
 
 Ubuntu server is now installing.
 
-.. image:: images/screen4.png
+.. image:: ./images/screen4.png
     :height: 500px
     :align: center
 
 Ubuntu server install complete.
 
-.. image:: images/screen5.png
+.. image:: ./images/screen5.png
     :height: 500px
     :align: center
 
@@ -79,7 +79,7 @@ See http://www.thirdbit.net/articles/2008/03/04/dhcp-on-vmware-fusion/
 
    $ user@ubuntu:$ ifconfig | grep eth0
 
-.. image:: images/screen6.png
+.. image:: ./images/screen6.png
     :align: center
 
 2. Edit the host's vmware dhcpd.conf file::
@@ -181,7 +181,7 @@ See http://www.thirdbit.net/articles/2008/03/04/dhcp-on-vmware-fusion/
 
 5. Stop the guest vm and configure it to use NAT networking.
 
-.. image:: images/screen7.png
+.. image:: ./images/screen7.png
     :align: center
 
 6. Start the guest vm
