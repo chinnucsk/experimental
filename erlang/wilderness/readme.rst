@@ -22,10 +22,12 @@ Hopefully, these simple posts will help others as much as they are helping me.
 -----------------------
 Episodes
 -----------------------
+ * Episode-00_ : Configure a VMWare guest vm
  * Episode-01_ : Install Erlang and Tools
  * Episode-02_ : Create a basic app
  * Episode-03_ : Create a Time Server App
 
+.. _Episode-00: https://github.com/ToddG/experimental/blob/master/erlang/wilderness/00/
 .. _Episode-01: https://github.com/ToddG/experimental/blob/master/erlang/wilderness/01/
 .. _Episode-02: https://github.com/ToddG/experimental/blob/master/erlang/wilderness/02/
 .. _Episode-03: https://github.com/ToddG/experimental/blob/master/erlang/wilderness/03/
