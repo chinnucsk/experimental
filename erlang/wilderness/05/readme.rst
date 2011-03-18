@@ -21,7 +21,7 @@ Create a REST endpoint that will add two integers and return the result.
 
 Example::
 
-    http://erlang-server:8000/service/add/1/2
+    http://erlang32:8000/service/add/1/2
 
 In this case, this should return 3 as a text/plain response.
 
@@ -185,28 +185,24 @@ key             ABC
     {["calculator", key, '*'], calculator_resource, []}.
 
 
-13. Implement an 'add' method for our generic 'service' endpoint in the to_text method in src/service_resource.erl::
+13. Implement an 'add' method for our generic 'service' endpoint in the to_text method in src/service_resource.erl
+
+::
 
     %% @author author <author@example.com>
     %% @copyright YYYY author.
     %% @doc Example webmachine_resource.
-
     -module(calculator_resource).
     -export([init/1, to_text/2, content_types_provided/2]).
     -import(string).
-
     -include_lib("webmachine/include/webmachine.hrl").
-
     init([]) -> {ok, undefined}.
-
     content_types_provided(ReqData, Context) ->
         {[{"text/plain",to_text}], ReqData, Context}.
-
     add_tokens(Tokens) ->
         {A,_} = string:to_integer(lists:nth(1,Tokens)),
         {B,_} = string:to_integer(lists:nth(2,Tokens)),
         string:join([integer_to_list(A), "+", integer_to_list(B), "=", integer_to_list(A+B)], " ").
-
     to_text(ReqData, State) ->
         Key = wrq:path_info(key,ReqData),
         case Key of
@@ -223,17 +219,17 @@ key             ABC
                 end
         end.
 
-14. Compile, start the service, and point your browser at http://erlang-server:8000/calculator/add
+14. Compile, start the service, and point your browser at http://erlang32:8000/calculator/add
 
 .. image:: https://github.com/ToddG/experimental/raw/master/erlang/wilderness/05/images/server_error.png
 
 Ok, in the future, I'll add better error handling.
 
-15. Try adding with this: http://erlang-server:8000/calculator/add/1/2 ::
+15. Try adding with this: http://erlang32:8000/calculator/add/1/2
 
 .. image:: https://github.com/ToddG/experimental/raw/master/erlang/wilderness/05/images/one_plus_2.png
 
-16. And more adding :: 
+16. And more adding
 
 .. image:: https://github.com/ToddG/experimental/raw/master/erlang/wilderness/05/images/more_adding.png
 
