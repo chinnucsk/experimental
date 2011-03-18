@@ -65,22 +65,21 @@ Create new Rest Endpoint
 
 4. Check out the docs, at: http://webmachine.basho.com/dispatcher.html
 
-5. Add a simple service endpoint, called 'service'::
+5. Add a simple service endpoint, called 'bilbo'::
 
     user@erlang32:~/projects/webmachine/mywebdemo$ cat priv/dispatch.conf 
     %%-*- mode: erlang -*-
     {[], mywebdemo_resource, []}.
-    {[service], service_resource, []}.
+    {["bilbo"], bilbo_resource, []}.
 
-6. Add the resource implementation to src/service_resource.erl::
 
-    user@erlang32:~/projects/webmachine/mywebdemo$ cat src/service_resource.erl
+6. Add the resource implementation to src/bilbo_resource.erl::
 
     %% @author author <author@example.com>
     %% @copyright YYYY author.
     %% @doc Example webmachine_resource.
 
-    -module(service_resource).
+    -module(bilbo_resource).
     -export([init/1, to_html/2]).
 
     -include_lib("webmachine/include/webmachine.hrl").
@@ -88,7 +87,7 @@ Create new Rest Endpoint
     init([]) -> {ok, undefined}.
 
     to_html(ReqData, State) ->
-       {"<html><body>Hello from service </body></html>", ReqData, State}.
+        {"<html><body>Bilbo!!!</body></html>", ReqData, State}.
 
 7. Restart erlang::
 
@@ -101,38 +100,42 @@ Create new Rest Endpoint
 
 8. Open in a browser from host::
 
-    [host] $ open http://erlang32:8000/service
+    [host] $ open http://erlang32:8000/bilbo
 
-.. image:: https://github.com/ToddG/experimental/raw/master/erlang/wilderness/05/images/screen01.png
+.. image:: https://github.com/ToddG/experimental/raw/master/erlang/wilderness/05/images/bilbo.png
 
-9. Change result to be text/plain::
+Add Text Endpoint
+-------------------
 
-    user@erlang32:~/projects/webmachine/mywebdemo$ cat src/service_resource.erl 
+1. Create a new resource and set the result to be text/plain, src/text_resource.erl::
+
     %% @author author <author@example.com>
     %% @copyright YYYY author.
     %% @doc Example webmachine_resource.
 
-    -module(service_resource).
+    -module(text_resource).
     -export([init/1, to_text/2, content_types_provided/2]).
+    -import(string).
 
     -include_lib("webmachine/include/webmachine.hrl").
 
     init([]) -> {ok, undefined}.
 
     content_types_provided(ReqData, Context) ->
-       {[{"text/plain",to_text}], ReqData, Context}.
+        {[{"text/plain",to_text}], ReqData, Context}.
 
 
-       %%to_html(ReqData, State) ->
-       %%    {"<html><body>Hello from service </body></html>", ReqData, State}.
+    %%to_html(ReqData, State) ->
+    %%    {"<html><body>Hello from service </body></html>", ReqData, State}.
 
-       to_text(ReqData, State) ->
-           {"<html><body>Text Hello From Service</body></html>", ReqData, State}.
+    to_text(ReqData, State) ->
+        {"<html><body>Text Resource</body></html>", ReqData, State}.
 
- * replaced to_html with to_text in both the -export and method implementation
- * added the content_types_provided method and exported it 
+2. Add a resource mapping in priv/dispatch.erl::
 
-10. Rebuild
+    {["text"], text_resource, []}.
+
+3. Rebuild
 
 ::
 
@@ -141,55 +144,104 @@ Create new Rest Endpoint
     ==> webmachine (compile)
     ==> mywebdemo (compile)
 
-11. Start erlang
+4. Start erlang
 
 ::
 
     user@erlang32:~/projects/webmachine/mywebdemo$ ./start.sh 
 
-11. Open in browser::
+5. Open in browser::
 
-    [host] $ open http://erlang32:8000/service
+    [host] $ open http://erlang32:8000/text
 
-.. image:: https://github.com/ToddG/experimental/raw/master/erlang/wilderness/05/images/screen02.png
-
-
-TODO: 
+.. image:: https://github.com/ToddG/experimental/raw/master/erlang/wilderness/05/images/text.png
 
 
-* update the dispatch to take a key
-* read from the url and parse numbers
-* add the numbers
-* add stuff together
+Add a Calculator Service as an Endpoint
+----------------------------------------
 
-Final priv/dispatch.conf::
+
+1. Update the priv/dispatch.conf to take map part of the query string to an atom like so::
+
+    {["calculator",key,'*'], calculator_resource, []}.
+
+* this will match this URI::
+
+    http://[some server]/calculator/ABC/whatever
+
+============    ==============
+"service"       service
+key             ABC
+'*'             whatever
+============    ==============
+
+
+2. Current priv/dispatch.conf::
 
     %%-*- mode: erlang -*-
     {[], mywebdemo_resource, []}.
-    {["service",key,'*'], mywebdemo_bar, []}.
+    {["bilbo"], bilbo_resource, []}.
+    {["text"], text_resource, []}.
+    {["calculator", key, '*'], calculator_resource, []}.
 
 
-Final to_text method in src/service_resource.erl::
+13. Implement an 'add' method for our generic 'service' endpoint in the to_text method in src/service_resource.erl::
+
+    %% @author author <author@example.com>
+    %% @copyright YYYY author.
+    %% @doc Example webmachine_resource.
+
+    -module(calculator_resource).
+    -export([init/1, to_text/2, content_types_provided/2]).
+    -import(string).
+
+    -include_lib("webmachine/include/webmachine.hrl").
+
+    init([]) -> {ok, undefined}.
+
+    content_types_provided(ReqData, Context) ->
+        {[{"text/plain",to_text}], ReqData, Context}.
+
+    add_tokens(Tokens) ->
+        {A,_} = string:to_integer(lists:nth(1,Tokens)),
+        {B,_} = string:to_integer(lists:nth(2,Tokens)),
+        string:join([integer_to_list(A), "+", integer_to_list(B), "=", integer_to_list(A+B)], " ").
 
     to_text(ReqData, State) ->
         Key = wrq:path_info(key,ReqData),
         case Key of
             undefined ->
-                {"<html><body>loller cat</body></html>", ReqData, State};
+                {"usage: [add] : calculator/add/number1/number2 ", ReqData, State};
             Value ->
                 case Value of
                     "add" ->
-                        io:format("value was add~n"),
-                        io:format("~p~n",[wrq:path_tokens(ReqData)]),
                         Tokens = wrq:path_tokens(ReqData),
-                        {A,_} = string:to_integer(lists:nth(1,Tokens)),
-                        {B,_} = string:to_integer(lists:nth(2,Tokens)),
-                        io:format("~p ~p~n",[2,3]),
-                        { integer_to_list(A+B), ReqData, State };
+                        io:format("calculator command :'add', path_tokens:~p~n", [Tokens]),
+                        { add_tokens(Tokens), ReqData, State };
                     _ ->
-                        {"<html><body>add</body></html>", ReqData, State }
+                        {"calculator/add/firstNumber/secondNumber : returns firstNumber + secondNumber", ReqData, State }
                 end
         end.
+
+14. Compile, start the service, and point your browser at http://erlang-server:8000/calculator/add
+
+.. image:: https://github.com/ToddG/experimental/raw/master/erlang/wilderness/05/images/server_error.png
+
+Ok, in the future, I'll add better error handling.
+
+15. Try adding with this: http://erlang-server:8000/calculator/add/1/2 ::
+
+.. image:: https://github.com/ToddG/experimental/raw/master/erlang/wilderness/05/images/one_plus_2.png
+
+16. And more adding :: 
+
+.. image:: https://github.com/ToddG/experimental/raw/master/erlang/wilderness/05/images/more_adding.png
+
+17. Finally, look at the io:format statements in the server log
+
+.. image:: https://github.com/ToddG/experimental/raw/master/erlang/wilderness/05/images/server_log.png
+
+18. Done.
 
 
 References
