@@ -17,7 +17,7 @@ How to Create an Mnesia Based Application (Part 1)
 Goal
 ----
 
-Load a dataset into Amnesia and present an interface to query the dataset. For this example, we'll load up the historical DOW trade data. The API over this data set will be:
+Load a dataset into Amnesia and present an interface to query the dataset. For this example, we'll load up the historical DJI trade data. The API over this data set will be:
 
 * Min/Max/Average/Median over a given date range
 * Full records over a given date range 
@@ -102,7 +102,7 @@ Create a Project
         └── stock_sup.erl
 
 
-2. Download data as spreadsheet::
+2. Download data as csv::
 
     user@erlang32:~/projects/stock$ mkdir data
     user@erlang32:~/projects/stock$ cd data
@@ -159,9 +159,10 @@ Input Dataset
     -record(entry, {stock,date,open,high,low,close,volume,adjclose}).
 
     init_tables() ->
-        mnesia:create_table(stock_entry,
+        mnesia:create_table(entry,
             [{type,bag}, {attributes, record_info(fields, entry)}]).
 
+.. Note:: Apparently the table *must* use the same atom as the record, in this case 'entry'. I originally tried naming the table with a different atom, thinking that the mnesia:create_table() method would then link the record to the table... that did not work.
 
 4. Compile and re-launch erlang::
 

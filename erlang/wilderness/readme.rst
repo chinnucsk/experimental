@@ -28,6 +28,7 @@ Episodes
  * Episode-03_ : Create a 'Time Server' App
  * Episode-04_ : Create a Webmachine Demo App (Webmachine Part I)
  * Episode-05_ : Create a Webmachine Rest Endpoint (Webmachine Part 2)
+ * Episode-06_ : [in-progress] Create an Mnesia based application
 
 -----------------------
 Ideas For Future Demos
@@ -47,3 +48,4 @@ Ideas For Future Demos
 .. _Episode-03: https://github.com/ToddG/experimental/blob/master/erlang/wilderness/03/
 .. _Episode-04: https://github.com/ToddG/experimental/blob/master/erlang/wilderness/04/
 .. _Episode-05: https://github.com/ToddG/experimental/blob/master/erlang/wilderness/05/
+.. _Episode-06: https://github.com/ToddG/experimental/blob/master/erlang/wilderness/06/
