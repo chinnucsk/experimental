@@ -30,7 +30,9 @@ In Part 3, we'll generate sparklines from this data, via the rest API.
 Launch Erlang with Mnesia started
 ---------------------------------
 
-1. start erlang::
+1. start erlang
+
+::
 
    user@erlang32:~$ erl -mnesia dir '"~/temp/mnesia_data"' -name mynode
    Erlang R13B04 (erts-5.7.5) [source] [rq:1] [async-threads:0] [kernel-poll:false]
@@ -38,26 +40,34 @@ Launch Erlang with Mnesia started
    Eshell V5.7.5  (abort with ^G)
    (mynode@erlang32.localdomain)1> 
    
-2. create database schema::
+2. create database schema
+
+::
 
    Eshell V5.7.5  (abort with ^G)
    (mynode@erlang32.localdomain)1> mnesia:create_schema([node()]).
    {error,{"Cannot create Mnesia dir",
            "/home/user/temp/mnesia_data",enoent}}
 
-3. failed, apparently mnesia doesn't create the data dir for us::
+3. failed, apparently mnesia doesn't create the data dir for us
+
+::
 
     user@erlang32:~$ mkdir -p temp/mnesia_data
     user@erlang32:~$ tree temp
     temp
     └── mnesia_data
 
-4. try to create database schema again::
+4. try to create database schema again
+
+::
 
    (mynode@erlang32.localdomain)2> mnesia:create_schema([node()]).
    ok
 
-5. start the db and get some stats::
+5. start the db and get some stats
+
+::
 
    (mynode@erlang32.localdomain)3> mnesia:start().
    ok
@@ -88,7 +98,9 @@ Launch Erlang with Mnesia started
 Create a Project
 ----------------
 
-1. Use rebar to create app skeleton::
+1. Use rebar to create app skeleton
+
+::
 
     user@erlang32:~ $ cd projects
     user@erlang32:~/projects/$ mkdir stock
@@ -114,7 +126,9 @@ See http://finance.yahoo.com/q/hp?s=^DJI+Historical+Prices
 
 Rename downloaded file to dji.csv
 
-3. Summary::
+3. Summary
+
+::
 
     user@erlang32:~/projects/stock$ tree
     .
@@ -129,7 +143,9 @@ Rename downloaded file to dji.csv
 Input Dataset
 -------------
 
-1. Here's a snippet of our dataset, which has >20k records::
+1. Here's a snippet of our dataset, which has >20k records
+
+::
 
    Date,Open,High,Low,Close,Volume,Adj Close
    2011-03-22,12036.37,12096.01,11965.38,12018.63,3576550000,12018.63
@@ -146,12 +162,16 @@ Input Dataset
    2011-03-07,12171.09,12268.87,12025.51,12090.03,3964730000,12090.03
    2011-03-04,12258.88,12306.26,12056.81,12169.88,4223740000,12169.88
 
-2. The data has this form::
+2. The data has this form
+
+::
 
    Date,Open,High,Low,Close,Volume,Adj Close
 
 
-3. Let's create a record to hold this data (src/create_tables.erl)::
+3. Let's create a record to hold this data (src/create_tables.erl)
+
+::
     
     -module(create_tables).
     -export([init_tables/0]).
@@ -164,7 +184,9 @@ Input Dataset
 
 .. Note:: Apparently the table *must* use the same atom as the record, in this case 'entry'. I originally tried naming the table with a different atom, thinking that the mnesia:create_table() method would then link the record to the table... that did not work.
 
-4. Compile and re-launch erlang::
+4. Compile and re-launch erlang
+
+::
 
     user@erlang32:~/projects/stock$ rebar compile
     ==> stock (compile)
@@ -177,12 +199,16 @@ Input Dataset
 
     Eshell V5.7.5  (abort with ^G)
 
-5. Create the tables via the init_tables() method::
+5. Create the tables via the init_tables() method
+
+::
 
     (mynode@erlang32.localdomain)4> create_tables:init_tables().
     {atomic,ok}
 
-6. Check out the database::
+6. Check out the database
+
+::
 
     (mynode@erlang32.localdomain)5> mnesia:info().              
     ---> Processes holding locks <--- 
@@ -210,11 +236,15 @@ Input Dataset
     0 transactions waits for other nodes: []
     ok
 
-7. The stock_entry table was created in ram::
+7. The stock_entry table was created in ram
+
+::
 
     ram_copies         = [stock_entry]
 
-8. Add a load_data() method to create_tables.erl::
+8. Add a load_data() method to create_tables.erl
+
+::
 
      11 load_data(FileName, StockName) ->
      12     {ok, FileDescriptor} = file:open(FileName, [read]),
@@ -243,17 +273,23 @@ Input Dataset
      35     error_logger:info_msg("insert_in_database: NewEntry=~p", [NewEntry]),
      36     mnesia:transaction(fun() -> mnesia:write(NewEntry) end).
 
-9. Start up the shell::
+9. Start up the shell
+
+::
 
     user@erlang32:~/projects/stock$ erl -mnesia dir '"/home/user/temp/mnesia_data"' -name mynode -pa ebin/
 
-10. Compile and load the data::
+10. Compile and load the data
+
+::
 
     (mynode@erlang32.localdomain)33> c("src/create_tables").
     (mynode@erlang32.localdomain)33> create_tables:init_tables().                           
     (mynode@erlang32.localdomain)33> create_tables:load_data("./data/short_dji.csv", "dji").
 
-10. Debug output::
+10. Debug output
+
+::
 
     =INFO REPORT==== 22-Mar-2011::23:44:37 ===
     parse_line: Entry={entry,"dji","2011-03-22","12036.37","12096.01","11965.38",
@@ -277,7 +313,9 @@ Input Dataset
                                         "11777.23","11858.52","4685500000",
                                         "11858.52\n"}
 
-11. Verify that the data is in the db::
+11. Verify that the data is in the db
+
+::
 
     (mynode@erlang32.localdomain)32> mnesia:dirty_read(entry, "dji").                       
     [{entry,"dji","2011-03-22","12036.37","12096.01","11965.38",
