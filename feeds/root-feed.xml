@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <rss version="2.0"><channel><title>Android Offline Content Viwer Feeds</title><link></link><description>
     Feed of feeds.
-     </description><lastBuildDate>Sun, 12 Aug 2012 19:22:53 GMT</lastBuildDate><generator>PyRSS2Gen-1.0.0</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs></channel></rss>
+     </description><lastBuildDate>Sun, 12 Aug 2012 20:02:29 GMT</lastBuildDate><generator>PyRSS2Gen-1.0.0</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Khan Feed</title><link>https://raw.github.com/ToddG/experimental/master/feeds/khan/patched-khan-feed-rss-2.0.xml</link><description>Khan Feed patched with category and sequence number</description></item><item><title>Academic Films</title><link>http://archive.org/advancedsearch.php?q=collection%3academic_films&amp;rows=999999&amp;page=1&amp;output=rss</link><description>Academic Films from Internet Archive</description></item></channel></rss>
