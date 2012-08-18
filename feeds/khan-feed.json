@@ -2,7 +2,7 @@
     "desc": "The most recent additions to the Internet Archive collections. This RSS feed is generated dynamically",
     "name": "Khan Academy",
     "pubDate": "08/17/2012",
-    "thumbUrl": null
+    "thumbUrl": null,
     "author": "Todd Greenwood-Geer (generated from internet archive rss feed)",
     "categories": [
         {
